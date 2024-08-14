@@ -17,7 +17,9 @@ toolik_biochem <- clean_names(read_csv(here::here("data", "2011_Kling_Akchem.csv
 ```
 
 ```{r}
-inlet_biochem <- toolik_biochem |> dplyr::select(p_h, tdn_u_m, doc_u_m)
+inlet_biochem <- filter(toolik_biochem, site == "Toolik Inlet" | site == "Toolik inlet")
+
+inlet_biochem <- inlet_biochem |> dplyr::select(p_h, tdn_u_m, doc_u_m)
 ```
 
 ```{r}
@@ -28,7 +30,6 @@ for(i in 1:ncol(inlet_biochem)) {
   mean_loop[i] <- mean_value
 }
 ```
-
 
 ```{r}
 mean_apply <- apply(X = inlet_biochem, MARGIN = 2, FUN = mean, na.rm = TRUE)
